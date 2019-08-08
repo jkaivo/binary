@@ -2,10 +2,10 @@
 #include <string.h>
 #include <stdint.h>
 
-#define BIT_UINTMAXBITS (sizeof(uintmax_t) * CHAR_BIT)
+#define BIN_UINTMAXBITS (sizeof(uintmax_t) * CHAR_BIT)
 
 #define BIN_BIT(_s, _b) (\
-	sizeof(_s) < (_b + 2) || (_b + 2) > BIT_UINTMAXBITS ? \
+	sizeof(_s) < (_b + 2) || (_b + 2) > BIN_UINTMAXBITS ? \
 		(uintmax_t)0 : \
 		_s[sizeof(_s)-(_b+2)] == '0' ? \
 			(uintmax_t)0 : \
@@ -31,11 +31,12 @@
 	BIN_BIT(_s, 60) + BIN_BIT(_s, 61) + BIN_BIT(_s, 62) + BIN_BIT(_s, 63) \
 )
 
-#define BIN(_n) BIN_FROM_ARRAY(#_n)
+#define BINSTRLEN	(BIN_UINTMAXBITS + 1)
+#define BIN(_n)		(BIN_FROM_ARRAY(#_n))
 
 static uintmax_t binfromstr(const char *s)
 {
-	char array[BIT_UINTMAXBITS + 1];
+	char array[BINSTRLEN];
 	memset(array, '0', sizeof(array));
 	strcpy(array + (sizeof(array) - strlen(s)) - 1, s);
 	return BIN_FROM_ARRAY(array);
@@ -45,7 +46,7 @@ static char *binstr(size_t n, char s[n], uintmax_t b)
 {
 	memset(s, '0', n);
 	s[n - 1] = '\0';
-	for (size_t i = 0; i < n - 2 && i < BIT_UINTMAXBITS; i++) {
+	for (size_t i = 0; i < n - 2 && i < BIN_UINTMAXBITS; i++) {
 		if (b & ((uintmax_t)1 << i)) {
 			s[n - (i + 2)] = '1';
 		}
