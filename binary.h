@@ -5,9 +5,9 @@
 #define BIT_UINTMAXBITS (sizeof(uintmax_t) * CHAR_BIT)
 
 #define BIN_BIT(_s, _b) (\
-	sizeof(_s) > (_b + 1) || (_b + 1) > BIT_UINTMAXBITS ? \
+	sizeof(_s) < (_b + 2) || (_b + 2) > BIT_UINTMAXBITS ? \
 		(uintmax_t)0 : \
-		_s[sizeof(_s)-(_b+1)] == '0' ? \
+		_s[sizeof(_s)-(_b+2)] == '0' ? \
 			(uintmax_t)0 : \
 			(uintmax_t)1 << _b\
 )
