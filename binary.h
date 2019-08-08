@@ -1,3 +1,6 @@
+#ifndef BINARY_H
+#define BINARY_H
+
 /*
  * MIT License
  *
@@ -58,3 +61,5 @@
 #define BIN(_n)		(BIN_FROM_ARRAY(#_n))
 
 char *binstr(size_t n, char s[n], uintmax_t b);
+
+#endif
