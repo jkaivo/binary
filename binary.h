@@ -2,8 +2,10 @@
 #include <string.h>
 #include <stdint.h>
 
+#define BIT_UINTMAXBITS (sizeof(uintmax_t) * CHAR_BIT)
+
 #define BIN_BIT(_s, _b) (\
-	sizeof(_s) > (_b+1) || (_b+1) > sizeof(uintmax_t) * CHAR_BIT ? \
+	sizeof(_s) > (_b + 1) || (_b + 1) > BIT_UINTMAXBITS ? \
 		(uintmax_t)0 : \
 		_s[sizeof(_s)-(_b+1)] == '0' ? \
 			(uintmax_t)0 : \
@@ -33,8 +35,20 @@
 
 static uintmax_t binfromstr(const char *s)
 {
-	char array[sizeof(uintmax_t) * CHAR_BIT + 1];
+	char array[BIT_UINTMAXBITS + 1];
 	memset(array, '0', sizeof(array));
 	strcpy(array + (sizeof(array) - strlen(s)) - 1, s);
 	return BIN_FROM_ARRAY(array);
+}
+
+static char *binstr(size_t n, char s[n], uintmax_t b)
+{
+	memset(s, '0', n);
+	s[n - 1] = '\0';
+	for (size_t i = 0; i < n && i < BIT_UINTMAXBITS; i++) {
+		if (b & (1 << i)) {
+			s[n - (i + 1)] = '1';
+		}
+	}
+	return s;
 }
