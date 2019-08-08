@@ -45,9 +45,9 @@ static char *binstr(size_t n, char s[n], uintmax_t b)
 {
 	memset(s, '0', n);
 	s[n - 1] = '\0';
-	for (size_t i = 0; i < n && i < BIT_UINTMAXBITS; i++) {
-		if (b & (1 << i)) {
-			s[n - (i + 1)] = '1';
+	for (size_t i = 0; i < n - 2 && i < BIT_UINTMAXBITS; i++) {
+		if (b & ((uintmax_t)1 << i)) {
+			s[n - (i + 2)] = '1';
 		}
 	}
 	return s;
