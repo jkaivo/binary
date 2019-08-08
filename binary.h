@@ -57,5 +57,4 @@
 #define BINSTRLEN	(BIN_UINTMAXBITS + 1)
 #define BIN(_n)		(BIN_FROM_ARRAY(#_n))
 
-uintmax_t binary(const char *s);
 char *binstr(size_t n, char s[n], uintmax_t b);

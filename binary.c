@@ -27,14 +27,6 @@
 
 #include "binary.h"
 
-uintmax_t binary(const char *s)
-{
-	char array[BINSTRLEN];
-	memset(array, '0', sizeof(array));
-	strcpy(array + (sizeof(array) - strlen(s)) - 1, s);
-	return BIN_FROM_ARRAY(array);
-}
-
 char *binstr(size_t n, char s[n], uintmax_t b)
 {
 	memset(s, '0', n);
